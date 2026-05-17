@@ -1,4 +1,5 @@
-import { SiGithub, SiLinkedin } from "react-icons/si";
+import { SiGithub } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa";
 import { SOCIALS } from "../data/portfolio";
 
 export default function Footer() {
@@ -34,7 +35,7 @@ export default function Footer() {
             className="transition-colors duration-150"
             style={{ color: "var(--muted)" }}
           >
-            <SiLinkedin size={14} />
+            <FaLinkedinIn size={14} />
           </a>
         </div>
       </div>
