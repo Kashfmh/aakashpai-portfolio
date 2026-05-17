@@ -1,14 +1,12 @@
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 
-// wip — adding sections one by one
+// wip — sections added one by one after testing
 export default function Home() {
   return (
     <main className="relative z-10 min-h-screen">
       <Navbar />
-      {/* placeholder so nav scroll logic has room to work */}
-      <div className="flex items-center justify-center" style={{ height: "200vh", color: "var(--muted)" }}>
-        <p className="mono text-sm">building... 🔧</p>
-      </div>
+      <Hero />
     </main>
   );
 }

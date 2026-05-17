@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: "Aakash Pai — Software Engineer",
-  description:
-    "Personal portfolio of Aakash Pai — software engineer, full-stack developer, builder.",
+  description: "Personal portfolio of Aakash Pai — software engineer, full-stack developer, builder.",
   keywords: ["Aakash Pai", "portfolio", "software engineer", "developer"],
   authors: [{ name: "Aakash Pai" }],
   openGraph: {
@@ -25,14 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-    >
+    <html lang="en" className={jetbrains.variable}>
       <body className="min-h-screen">{children}</body>
     </html>
   );
