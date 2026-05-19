@@ -39,45 +39,64 @@ export default function TechStack() {
       <div className="container">
         <SectionMarker index="02" label="STACK" />
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {TECH.map((cat) => (
-            <div
-              key={cat.label}
-              style={{
-                padding: "32px",
-                border: "1px solid var(--border)",
-                background: "var(--surface)",
-              }}
-            >
-              {/* category label */}
-              <h3
-                className="text-xs tracking-[0.15em] uppercase"
-                style={{ color: "var(--muted)", marginBottom: "24px" }}
-              >
-                {cat.label}
-              </h3>
+        <div
+          className="font-mono text-sm leading-relaxed overflow-x-auto"
+          style={{
+            padding: "40px",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+          }}
+        >
+          {/* prompt line */}
+          <div style={{ marginBottom: "24px" }}>
+            <span style={{ color: "var(--t-prompt)" }}>guest@aakash:~/skills$</span>
+            <span style={{ color: "var(--text)", marginLeft: "8px" }}>tree .</span>
+          </div>
 
-              {/* items */}
-              <div className="flex flex-wrap gap-4">
-                {cat.items.map((tech) => {
+          <div style={{ color: "var(--text)" }}>.</div>
+
+          {TECH.map((cat, i) => {
+            const isLastCat = i === TECH.length - 1;
+            return (
+              <div key={cat.label}>
+                {/* Category Node */}
+                <div className="flex items-center mt-2">
+                  <span style={{ color: "var(--dim)", whiteSpace: "pre" }}>
+                    {isLastCat ? "└── " : "├── "}
+                  </span>
+                  <span
+                    style={{
+                      color: "var(--text)",
+                      fontWeight: 600,
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {cat.label}
+                  </span>
+                </div>
+
+                {/* Tech Items */}
+                {cat.items.map((tech, j) => {
+                  const isLastItem = j === cat.items.length - 1;
+                  const prefix = isLastCat ? "    " : "│   ";
+                  const pointer = isLastItem ? "└── " : "├── ";
                   const Icon = ICON_MAP[tech];
+
                   return (
-                    <div key={tech} className="flex items-center gap-2">
-                      {Icon && (
-                        <Icon size={14} style={{ color: "var(--muted)" }} />
-                      )}
-                      <span
-                        className="text-xs tracking-wide"
-                        style={{ color: "var(--text)" }}
-                      >
-                        {tech}
+                    <div key={tech} className="flex items-center">
+                      <span style={{ color: "var(--dim)", whiteSpace: "pre" }}>
+                        {prefix}{pointer}
                       </span>
+                      <div className="flex items-center gap-3 px-2 py-1 transition-colors hover:bg-[var(--surface-2)] rounded-sm cursor-default">
+                        {Icon && <Icon size={14} style={{ color: "var(--muted)" }} />}
+                        <span style={{ color: "var(--muted)" }}>{tech}</span>
+                      </div>
                     </div>
                   );
                 })}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
