@@ -124,6 +124,7 @@ export type EducationEntry = {
   qualification: string;
   period: string;
   status: "In Progress" | "Completed";
+  cgpa?: string;
 };
 
 export const EDUCATION: EducationEntry[] = [
@@ -134,9 +135,10 @@ export const EDUCATION: EducationEntry[] = [
     status: "In Progress",
   },
   {
-    institution: "Sunway University",
+    institution: "Sunway College",
     qualification: "Diploma in Information Technology",
     period: "Aug 2023 — Aug 2025",
     status: "Completed",
+    cgpa: "3.83/4.00",
   },
 ];

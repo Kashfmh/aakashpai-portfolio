@@ -92,7 +92,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative z-10 pt-36 pb-0">
+    <section className="section-hero">
       <div className="container">
         <TerminalWindow title={`bash — ${PROMPT.split("$")[0].trim()}`}>
           <div>
@@ -141,27 +141,28 @@ export default function Hero() {
           </div>
         </TerminalWindow>
 
-        {/* stat row — attached to bottom of terminal */}
+        {/* stat row — separate blocks */}
         <div
-          className="grid grid-cols-3"
-          style={{ border: "1px solid var(--border)", borderTop: "none" }}
+          className="grid grid-cols-3 gap-6"
+          style={{ marginTop: "32px" }}
         >
           {STATS.map((s, i) => (
             <div
               key={i}
-              className="px-6 py-5"
               style={{
-                borderRight: i < STATS.length - 1 ? "1px solid var(--border)" : "none",
+                padding: "24px 32px",
+                border: "1px solid var(--border)",
+                background: "var(--surface)",
               }}
             >
               <div
                 className="text-2xl font-semibold tracking-tight"
-                style={{ color: "var(--text)" }}
+                style={{ color: "var(--text)", marginBottom: "8px" }}
               >
                 {s.val}
               </div>
               <div
-                className="text-xs tracking-[0.15em] uppercase mt-1"
+                className="text-xs tracking-[0.15em] uppercase"
                 style={{ color: "var(--muted)" }}
               >
                 {s.label}

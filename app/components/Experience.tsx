@@ -3,29 +3,28 @@ import { EXPERIENCE, EDUCATION } from "../data/portfolio";
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative z-10 py-24">
+    <section id="experience" className="section section-divider">
       <div className="container">
         <SectionMarker index="04" label="EXPERIENCE" />
 
         {/* experience entries */}
-        <div className="mb-16">
+        <div style={{ marginBottom: "64px" }}>
           {EXPERIENCE.map((entry, i) => (
             <div
               key={i}
               className="grid md:grid-cols-[220px_1fr] gap-8"
               style={{
-                borderTop: "1px solid var(--border)",
-                paddingTop: "24px",
-                paddingBottom: "24px",
-                borderBottom:
-                  i === EXPERIENCE.length - 1 ? "1px solid var(--border)" : "none",
+                padding: "32px",
+                border: "1px solid var(--border)",
+                background: "var(--surface)",
+                marginBottom: "24px",
               }}
             >
               {/* left — meta */}
               <div>
                 <p
-                  className="text-xs tracking-wide uppercase mb-1"
-                  style={{ color: "var(--text)" }}
+                  className="text-xs tracking-wide uppercase"
+                  style={{ color: "var(--text)", marginBottom: "8px" }}
                 >
                   {entry.company}
                 </p>
@@ -36,8 +35,8 @@ export default function Experience() {
                   {entry.role}
                 </p>
                 <p
-                  className="text-xs mt-2 tracking-wide"
-                  style={{ color: "var(--dim)" }}
+                  className="text-xs tracking-wide"
+                  style={{ color: "var(--dim)", marginTop: "12px" }}
                 >
                   {entry.dates}
                 </p>
@@ -68,23 +67,22 @@ export default function Experience() {
               key={i}
               className="grid md:grid-cols-[220px_1fr] gap-8"
               style={{
-                borderTop: "1px solid var(--border)",
-                paddingTop: "20px",
-                paddingBottom: "20px",
-                borderBottom:
-                  i === EDUCATION.length - 1 ? "1px solid var(--border)" : "none",
+                padding: "32px",
+                border: "1px solid var(--border)",
+                background: "var(--surface)",
+                marginBottom: "24px",
               }}
             >
               <div>
                 <p
-                  className="text-xs tracking-wide uppercase mb-1"
-                  style={{ color: "var(--text)" }}
+                  className="text-xs tracking-wide uppercase"
+                  style={{ color: "var(--text)", marginBottom: "8px" }}
                 >
                   {entry.institution}
                 </p>
                 <p
-                  className="text-xs mt-2 tracking-wide"
-                  style={{ color: "var(--dim)" }}
+                  className="text-xs tracking-wide"
+                  style={{ color: "var(--dim)", marginTop: "12px" }}
                 >
                   {entry.period}
                 </p>
@@ -93,10 +91,16 @@ export default function Experience() {
               <div className="flex flex-col justify-center">
                 <p className="text-xs" style={{ color: "var(--muted)" }}>
                   {entry.qualification}
+                  {entry.cgpa && (
+                    <span style={{ color: "var(--text)" }}>
+                      {" — CGPA: "}{entry.cgpa}
+                    </span>
+                  )}
                 </p>
                 <span
-                  className="inline-block mt-2 text-xs tracking-widest uppercase"
+                  className="inline-block text-xs tracking-widest uppercase"
                   style={{
+                    marginTop: "12px",
                     color:
                       entry.status === "In Progress"
                         ? "var(--t-ok)"

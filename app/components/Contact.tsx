@@ -5,19 +5,19 @@ import { SOCIALS } from "../data/portfolio";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative z-10 py-24">
+    <section id="contact" className="section section-divider">
       <div className="container">
         <SectionMarker index="06" label="CONTACT" />
 
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
+        <div className="grid md:grid-cols-2 gap-12" style={{ marginBottom: "64px" }}>
           <div>
             <h2
-              className="text-2xl font-semibold tracking-tight leading-snug mb-4"
-              style={{ color: "var(--text)" }}
+              className="text-2xl font-semibold tracking-tight leading-snug"
+              style={{ color: "var(--text)", marginBottom: "24px" }}
             >
               INITIATE_CONTACT
             </h2>
-            <p className="text-xs leading-7" style={{ color: "var(--muted)" }}>
+            <p className="text-sm leading-7" style={{ color: "var(--muted)" }}>
               Whether it&apos;s for collaboration, an internship, or just to
               talk shop — the channel is open. Fastest response via WhatsApp.
             </p>
@@ -25,8 +25,8 @@ export default function Contact() {
 
           {/* status indicator */}
           <div
-            className="flex items-center gap-3 self-start px-5 py-4"
-            style={{ border: "1px solid var(--border)" }}
+            className="flex items-center gap-3 self-start"
+            style={{ padding: "20px 24px", border: "1px solid var(--border)" }}
           >
             <span
               className="block w-2 h-2 rounded-full"
@@ -42,22 +42,19 @@ export default function Contact() {
         </div>
 
         {/* contact options */}
-        <div
-          className="grid md:grid-cols-2 gap-px"
-          style={{ background: "var(--border)" }}
-        >
+        <div className="grid md:grid-cols-2 gap-6">
           {/* whatsapp */}
           <a
             href={SOCIALS.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-between px-8 py-8 group transition-colors duration-150"
-            style={{ background: "var(--surface)" }}
+            className="flex items-center justify-between hover-card"
+            style={{ padding: "32px", background: "var(--surface)", border: "1px solid var(--border)" }}
           >
             <div>
               <p
-                className="text-xs tracking-[0.15em] uppercase mb-2"
-                style={{ color: "var(--muted)" }}
+                className="text-xs tracking-[0.15em] uppercase"
+                style={{ color: "var(--muted)", marginBottom: "12px" }}
               >
                 PREFERRED
               </p>
@@ -67,7 +64,7 @@ export default function Contact() {
               >
                 WhatsApp
               </p>
-              <p className="text-xs mt-1" style={{ color: "var(--dim)" }}>
+              <p className="text-xs" style={{ color: "var(--dim)", marginTop: "8px" }}>
                 +60 11-2377 6040
               </p>
             </div>
@@ -81,13 +78,13 @@ export default function Contact() {
           {/* email */}
           <a
             href={`mailto:${SOCIALS.email}`}
-            className="flex items-center justify-between px-8 py-8 group transition-colors duration-150"
-            style={{ background: "var(--surface)" }}
+            className="flex items-center justify-between hover-card"
+            style={{ padding: "32px", background: "var(--surface)", border: "1px solid var(--border)" }}
           >
             <div>
               <p
-                className="text-xs tracking-[0.15em] uppercase mb-2"
-                style={{ color: "var(--muted)" }}
+                className="text-xs tracking-[0.15em] uppercase"
+                style={{ color: "var(--muted)", marginBottom: "12px" }}
               >
                 EMAIL
               </p>
@@ -97,7 +94,7 @@ export default function Contact() {
               >
                 Email
               </p>
-              <p className="text-xs mt-1" style={{ color: "var(--dim)" }}>
+              <p className="text-xs" style={{ color: "var(--dim)", marginTop: "8px" }}>
                 {SOCIALS.email}
               </p>
             </div>

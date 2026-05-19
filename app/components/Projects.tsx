@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { ReactLenis } from "lenis/react";
+import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import { ExternalLink } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import SectionMarker from "./ui/SectionMarker";
@@ -5,119 +10,138 @@ import { PROJECTS, type Project } from "../data/portfolio";
 
 function ProjectCard({
   project,
-  large = false,
+  i,
+  progress,
+  range,
+  targetScale,
 }: {
   project: Project;
-  large?: boolean;
+  i: number;
+  progress: MotionValue<number>;
+  range: [number, number];
+  targetScale: number;
 }) {
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "start start"],
+  });
+
+  const scale = useTransform(progress, range, [1, targetScale]);
+
   return (
     <div
-      className="flex flex-col justify-between p-6 h-full"
-      style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
+      ref={container}
+      className="h-screen flex items-center justify-center sticky top-0"
     >
-      <div>
-        <h3
-          className={`font-semibold tracking-tight mb-3 ${large ? "text-base" : "text-sm"}`}
-          style={{ color: "var(--text)" }}
+      <div className="container w-full flex justify-center">
+        <motion.div
+          style={{
+            scale,
+            top: `calc(5vh + ${i * 30}px)`,
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            boxShadow: i > 0 ? "0 -20px 40px rgba(0,0,0,0.4)" : "none",
+          }}
+          className="flex flex-col justify-between w-full max-w-4xl relative origin-top"
         >
-          {project.name}
-        </h3>
-        <p
-          className="text-xs leading-7"
-          style={{ color: "var(--muted)" }}
-        >
-          {project.description}
-        </p>
-
-        {/* tech tags */}
-        <div className="flex flex-wrap gap-2 mt-5">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="text-xs tracking-wide px-2 py-1"
-              style={{
-                border: "1px solid var(--border-2)",
-                color: "var(--dim)",
-                background: "var(--surface-2)",
-              }}
+          <div style={{ padding: "48px" }}>
+            <h3
+              className="text-xl font-semibold tracking-tight"
+              style={{ color: "var(--text)", marginBottom: "16px" }}
             >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
+              {project.name}
+            </h3>
+            <p className="text-sm leading-8" style={{ color: "var(--muted)" }}>
+              {project.description}
+            </p>
 
-      {/* links */}
-      <div className="flex items-center gap-4 mt-6">
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-xs tracking-wide uppercase transition-colors duration-150 hover:text-[color:var(--text)]"
-          style={{ color: "var(--muted)" }}
-        >
-          <SiGithub size={12} />
-          Source
-        </a>
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs tracking-wide uppercase transition-colors duration-150 hover:text-[color:var(--text)]"
-            style={{ color: "var(--muted)" }}
-          >
-            <ExternalLink size={12} />
-            Live
-          </a>
-        )}
+            <div className="flex flex-wrap gap-2" style={{ marginTop: "40px" }}>
+              {project.tech.map((t) => (
+                <span
+                  key={t}
+                  className="text-xs tracking-wide"
+                  style={{
+                    padding: "8px 14px",
+                    border: "1px solid var(--border-2)",
+                    color: "var(--dim)",
+                    background: "var(--surface-2)",
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <div
+              className="flex items-center gap-8"
+              style={{ marginTop: "48px" }}
+            >
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs tracking-[0.1em] uppercase hover-text transition-colors"
+                style={{ color: "var(--muted)" }}
+              >
+                <SiGithub size={16} />
+                Source
+              </a>
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs tracking-[0.1em] uppercase hover-text transition-colors"
+                  style={{ color: "var(--muted)" }}
+                >
+                  <ExternalLink size={16} />
+                  Live Demo
+                </a>
+              )}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
 }
 
 export default function Projects() {
-  const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  const container = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start start", "end end"],
+  });
 
   return (
-    <section id="projects" className="relative z-10 py-24">
-      <div className="container">
-        <SectionMarker index="03" label="WORK" />
-
-        {/* featured — 2 col bento */}
-        <p
-          className="text-xs tracking-[0.15em] uppercase mb-4"
-          style={{ color: "var(--dim)" }}
-        >
-          01&nbsp;&nbsp;//&nbsp;&nbsp;PRODUCTION
-        </p>
-        <div className="grid md:grid-cols-2 gap-px mb-px" style={{ background: "var(--border)" }}>
-          {featured.map((p) => (
-            <ProjectCard key={p.name} project={p} large />
-          ))}
+    <ReactLenis root>
+      <section
+        id="projects"
+        ref={container}
+        className="relative z-10 section-divider"
+        style={{ paddingBottom: "10vh" }}
+      >
+        <div className="container" style={{ paddingTop: "96px" }}>
+          <SectionMarker index="03" label="WORK" />
         </div>
 
-        {/* rest — smaller */}
-        {rest.length > 0 && (
-          <>
-            <p
-              className="text-xs tracking-[0.15em] uppercase mt-8 mb-4"
-              style={{ color: "var(--dim)" }}
-            >
-              02&nbsp;&nbsp;//&nbsp;&nbsp;OTHER
-            </p>
-            <div
-              className="grid md:grid-cols-3 gap-px"
-              style={{ background: "var(--border)" }}
-            >
-              {rest.map((p) => (
-                <ProjectCard key={p.name} project={p} />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-    </section>
+        <div className="relative w-full">
+          {PROJECTS.map((project, i) => {
+            const targetScale = 1 - (PROJECTS.length - i) * 0.03;
+            return (
+              <ProjectCard
+                key={project.name}
+                project={project}
+                i={i}
+                progress={scrollYProgress}
+                range={[i * (1 / PROJECTS.length), 1]}
+                targetScale={targetScale}
+              />
+            );
+          })}
+        </div>
+      </section>
+    </ReactLenis>
   );
 }

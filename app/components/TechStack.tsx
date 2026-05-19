@@ -35,35 +35,30 @@ const ICON_MAP: Record<string, IconType> = {
 
 export default function TechStack() {
   return (
-    <section id="stack" className="relative z-10 py-24">
+    <section id="stack" className="section section-divider">
       <div className="container">
         <SectionMarker index="02" label="STACK" />
 
-        <div style={{ border: "1px solid var(--border)" }}>
-          {TECH.map((cat, ci) => (
+        <div className="grid md:grid-cols-2 gap-6">
+          {TECH.map((cat) => (
             <div
               key={cat.label}
-              className="grid md:grid-cols-[160px_1fr]"
               style={{
-                borderBottom:
-                  ci < TECH.length - 1 ? "1px solid var(--border)" : "none",
+                padding: "32px",
+                border: "1px solid var(--border)",
+                background: "var(--surface)",
               }}
             >
               {/* category label */}
-              <div
-                className="px-6 py-5 flex items-start"
-                style={{ borderRight: "1px solid var(--border)" }}
+              <h3
+                className="text-xs tracking-[0.15em] uppercase"
+                style={{ color: "var(--muted)", marginBottom: "24px" }}
               >
-                <span
-                  className="text-xs tracking-[0.15em] uppercase"
-                  style={{ color: "var(--muted)" }}
-                >
-                  {cat.label}
-                </span>
-              </div>
+                {cat.label}
+              </h3>
 
               {/* items */}
-              <div className="px-6 py-5 flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-4">
                 {cat.items.map((tech) => {
                   const Icon = ICON_MAP[tech];
                   return (

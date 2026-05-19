@@ -19,26 +19,70 @@ export default function TerminalWindow({
         border: "1px solid var(--border)",
       }}
     >
-      {/* titlebar */}
+      {/* titlebar — needs position relative for the centered title span */}
       <div
-        className="flex items-center px-4 py-3"
-        style={{ borderBottom: "1px solid var(--border)" }}
+        className="flex items-center"
+        style={{
+          padding: "12px 16px",
+          borderBottom: "1px solid var(--border)",
+          position: "relative",
+        }}
       >
-        <div className="flex items-center gap-[6px]">
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--t-dot-red)", display: "block" }} />
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--t-dot-yellow)", display: "block" }} />
-          <span style={{ width: 12, height: 12, borderRadius: "50%", background: "var(--t-dot-green)", display: "block" }} />
+        {/* traffic lights */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6, zIndex: 1 }}>
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              background: "var(--t-dot-red)",
+              display: "inline-block",
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              background: "var(--t-dot-yellow)",
+              display: "inline-block",
+              flexShrink: 0,
+            }}
+          />
+          <span
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: "50%",
+              background: "var(--t-dot-green)",
+              display: "inline-block",
+              flexShrink: 0,
+            }}
+          />
         </div>
+
+        {/* centered title */}
         <span
-          className="absolute left-1/2 -translate-x-1/2 text-xs tracking-widest uppercase"
-          style={{ color: "var(--muted)" }}
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: "var(--muted)",
+            whiteSpace: "nowrap",
+          }}
         >
           {title}
         </span>
       </div>
 
       {/* body */}
-      <div className="p-6 text-sm leading-7">{children}</div>
+      <div className="text-sm leading-7" style={{ padding: "24px" }}>
+        {children}
+      </div>
     </div>
   );
 }

@@ -32,11 +32,13 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 pt-4">
+      <header className="fixed top-0 left-0 right-0 z-50" style={{ paddingTop: "24px" }}>
         <div className="container">
           <nav
-            className="flex items-center justify-between px-6 h-14 relative"
+            className="flex items-center justify-between relative"
             style={{
+              padding: "0 24px",
+              height: "64px",
               background: "var(--surface)",
               border: "1px solid var(--border)",
             }}
@@ -111,8 +113,9 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="px-6 py-4 text-xs tracking-[0.15em] uppercase"
+                  className="text-xs tracking-[0.15em] uppercase hover-text"
                   style={{
+                    padding: "16px 24px",
                     color: active === link.href.slice(1) ? "var(--text)" : "var(--muted)",
                     borderBottom: "1px solid var(--border)",
                   }}
@@ -124,8 +127,8 @@ export default function Navbar() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-4 text-xs tracking-[0.15em] uppercase"
-                style={{ color: "var(--muted)" }}
+                className="text-xs tracking-[0.15em] uppercase hover-text"
+                style={{ padding: "16px 24px", color: "var(--muted)" }}
               >
                 RESUME
               </a>

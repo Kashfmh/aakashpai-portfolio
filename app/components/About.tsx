@@ -10,43 +10,41 @@ const INFO = [
 
 export default function About() {
   return (
-    <section id="about" className="relative z-10 py-24">
+    <section id="about" className="section section-divider">
       <div className="container">
         <SectionMarker index="01" label="ABOUT" />
 
-        <div className="grid md:grid-cols-[1fr_300px] gap-12">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "64px", alignItems: "start" }}>
           {/* bio */}
           <div>
             <h2
-              className="text-2xl font-semibold leading-snug tracking-tight mb-6"
-              style={{ color: "var(--text)" }}
+              style={{ fontSize: "1.3rem", fontWeight: 600, lineHeight: 1.45, letterSpacing: "-0.01em", color: "var(--text)", marginBottom: "20px" }}
             >
               Building production-grade systems
               <br />
               at the intersection of web and AI.
             </h2>
             <p
-              className="text-sm leading-8"
-              style={{ color: "var(--muted)", maxWidth: "520px" }}
+              style={{ fontSize: "0.78rem", lineHeight: 2, color: "var(--muted)", maxWidth: "520px", marginTop: "16px" }}
             >
               {ABOUT.bio}
             </p>
           </div>
 
           {/* info grid */}
-          <div style={{ border: "1px solid var(--border)" }}>
-            {INFO.map((item, i) => (
+          <div className="grid grid-cols-2 gap-4">
+            {INFO.map((item) => (
               <div
                 key={item.label}
-                className="px-5 py-4"
                 style={{
-                  borderBottom:
-                    i < INFO.length - 1 ? "1px solid var(--border)" : "none",
+                  padding: "24px",
+                  border: "1px solid var(--border)",
+                  background: "var(--surface)",
                 }}
               >
                 <p
-                  className="text-xs tracking-[0.15em] uppercase mb-1"
-                  style={{ color: "var(--muted)" }}
+                  className="text-xs tracking-[0.15em] uppercase"
+                  style={{ color: "var(--muted)", marginBottom: "8px" }}
                 >
                   {item.label}
                 </p>
