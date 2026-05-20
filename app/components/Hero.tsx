@@ -111,7 +111,7 @@ export default function Hero() {
             Full-Stack Engineer & CS Student at Sunway University. I build robust, scalable, and dynamic digital experiences.
           </p>
           
-          <div className="flex flex-wrap justify-center items-center gap-4" style={{ marginTop: "24px" }}>
+          <div className="flex flex-wrap justify-center items-center gap-8" style={{ marginTop: "24px" }}>
             <a 
               href="#contact" 
               className="btn-contact"

@@ -207,7 +207,7 @@
 
   /* spacing */
   --section-pad: 96px;
-  --hero-pad-top: 148px;
+  --hero-pad-top: 40px;
 }
 
 
@@ -218,7 +218,9 @@
 }
 
 /* override tailwind v4 preflight border color default */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   border-color: transparent;
 }
 
@@ -350,15 +352,19 @@ body::before {
   border: 1px solid var(--border);
   background-color: transparent;
 }
+
 .btn-hero-secondary::before {
   background-color: var(--surface-2);
 }
+
 .btn-hero-secondary:hover::before {
   scale: 5;
 }
+
 .btn-hero-secondary:hover {
   scale: 1.05;
 }
+
 .btn-hero-secondary:active {
   scale: 1;
 }
@@ -566,9 +572,11 @@ body::before {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }

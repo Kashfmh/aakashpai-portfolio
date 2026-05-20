@@ -1,141 +1,109 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Terminal, X, Menu } from "lucide-react";
-
-const LINKS = [
-  { label: "WORK", href: "#projects" },
-  { label: "STACK", href: "#stack" },
-  { label: "EXPERIENCE", href: "#experience" },
-  { label: "CONTACT", href: "#contact" },
-];
+import {
+  Navbar as ResizableNavbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/components/ui/resizable-navbar";
+import { useState } from "react";
+import { Terminal, FileText } from "lucide-react";
 
 export default function Navbar() {
-  const [active, setActive] = useState("");
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const navItems = [
+    { name: "ABOUT", link: "#about" },
+    { name: "STACK", link: "#stack" },
+    { name: "PROJECTS", link: "#projects" },
+    { name: "TIMELINE", link: "#experience" },
+    { name: "CONTACT", link: "#contact" },
+  ];
 
-  useEffect(() => {
-    const onScroll = () => {
-      const ids = LINKS.map((l) => l.href.slice(1));
-      for (const id of [...ids].reverse()) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 100) {
-          setActive(id);
-          return;
-        }
-      }
-      setActive("");
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const Logo = () => (
+    <a
+      href="#"
+      className="text-xs font-semibold tracking-[0.2em] uppercase relative z-20 mr-4 flex items-center px-2 py-1"
+      style={{ color: "var(--text)" }}
+    >
+      AP.DEV
+    </a>
+  );
 
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-50" style={{ paddingTop: "24px" }}>
-        <div className="container">
-          <nav
-            className="flex items-center justify-between relative"
-            style={{
-              padding: "0 24px",
-              height: "64px",
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-            }}
-          >
-            {/* brand */}
+    <div className="relative w-full">
+      <ResizableNavbar>
+        {/* Desktop Navigation */}
+        <NavBody className="border border-border bg-surface">
+          <Logo />
+          <NavItems items={navItems} />
+          <div className="flex items-center gap-6">
             <a
-              href="#"
-              className="text-xs font-semibold tracking-[0.2em] uppercase"
-              style={{ color: "var(--text)" }}
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs tracking-[0.15em] uppercase transition-colors duration-150 hover:text-text"
+              style={{ color: "var(--muted)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
             >
-              AP.DEV
+              <FileText size={14} />
+              <span className="hidden xl:inline">RESUME</span>
             </a>
-
-            {/* desktop links */}
-            <div className="hidden md:flex items-center gap-8">
-              {LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs tracking-[0.15em] uppercase transition-colors duration-150"
-                  style={{
-                    color: active === link.href.slice(1) ? "var(--text)" : "var(--muted)",
-                  }}
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div
+              className="flex items-center justify-center w-8 h-8 rounded-sm"
+              style={{ border: "1px solid var(--border)" }}
+            >
+              <Terminal size={13} style={{ color: "var(--muted)" }} />
             </div>
+          </div>
+        </NavBody>
 
-            {/* resume + terminal icon */}
-            <div className="hidden md:flex items-center gap-3">
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            <Logo />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+            className="border border-border bg-surface dark:bg-surface"
+          >
+            {navItems.map((item, idx) => (
               <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs tracking-[0.15em] uppercase transition-colors duration-150"
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-xs tracking-[0.15em] uppercase text-muted hover:text-text w-full pb-4 border-b border-border"
                 style={{ color: "var(--muted)" }}
               >
-                RESUME
+                <span className="block">{item.name}</span>
               </a>
-              <div
-                className="flex items-center justify-center w-8 h-8"
-                style={{ border: "1px solid var(--border)" }}
-              >
-                <Terminal size={13} style={{ color: "var(--muted)" }} />
-              </div>
-            </div>
-
-            {/* mobile toggle */}
-            <button
-              className="md:hidden"
-              onClick={() => setMobileOpen((p) => !p)}
-              style={{ color: "var(--muted)" }}
-              aria-label="toggle menu"
-            >
-              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
-            </button>
-          </nav>
-
-          {/* mobile dropdown */}
-          {mobileOpen && (
-            <div
-              className="flex flex-col md:hidden"
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderTop: "none",
-              }}
-            >
-              {LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-xs tracking-[0.15em] uppercase hover-text"
-                  style={{
-                    padding: "16px 24px",
-                    color: active === link.href.slice(1) ? "var(--text)" : "var(--muted)",
-                    borderBottom: "1px solid var(--border)",
-                  }}
-                >
-                  {link.label}
-                </a>
-              ))}
+            ))}
+            <div className="flex w-full flex-col gap-4 mt-4">
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs tracking-[0.15em] uppercase hover-text"
-                style={{ padding: "16px 24px", color: "var(--muted)" }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-xs tracking-[0.15em] uppercase w-full text-left"
+                style={{ color: "var(--text)" }}
               >
                 RESUME
               </a>
             </div>
-          )}
-        </div>
-      </header>
-    </>
+          </MobileNavMenu>
+        </MobileNav>
+      </ResizableNavbar>
+    </div>
   );
 }
