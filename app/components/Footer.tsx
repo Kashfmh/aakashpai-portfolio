@@ -13,7 +13,7 @@ export default function Footer() {
           className="text-xs tracking-[0.1em] uppercase"
           style={{ color: "var(--dim)" }}
         >
-          &copy; 2025 Aakash Pai — Engineered in KL
+          &copy; 2026 Aakash Pai — Engineered in KL
         </p>
 
         <div className="flex items-center gap-5">

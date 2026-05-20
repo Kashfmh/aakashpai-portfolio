@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import TerminalWindow from "./ui/TerminalWindow";
 import { STATS, TERMINAL_SEQ } from "../data/portfolio";
+import { FaWhatsapp, FaLinkedin, FaGithub } from "react-icons/fa";
 
 const PROMPT = "guest@aakash:~$";
 
@@ -92,60 +93,100 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="section-hero">
+    <section className="section-hero relative z-10">
       <div className="container">
-        <TerminalWindow title={`bash — ${PROMPT.split("$")[0].trim()}`}>
-          <div>
-            {lines.map((line, i) => {
-              if (line.kind === "gap") {
-                return <div key={i} className="h-3" />;
-              }
-              if (line.kind === "cmd") {
-                return (
-                  <div key={i} className="flex gap-3">
-                    <span style={{ color: "var(--t-prompt)" }}>{PROMPT}</span>
-                    <span style={{ color: "var(--text)" }}>{line.text}</span>
-                  </div>
-                );
-              }
-              // out
-              const isOk = line.text.startsWith("[OK]");
-              return (
-                <div
-                  key={i}
-                  style={{ color: isOk ? "var(--t-ok)" : "var(--t-output)" }}
-                >
-                  {line.text}
-                </div>
-              );
-            })}
-
-            {/* currently typing */}
-            {typing !== null && (
-              <div className="flex gap-3">
-                <span style={{ color: "var(--t-prompt)" }}>{PROMPT}</span>
-                <span style={{ color: "var(--text)" }}>
-                  {typing}
-                  <span className="cursor-block" />
-                </span>
+        
+        {/* Centered Identity & CTAs */}
+        <div className="flex flex-col items-center text-center" style={{ marginBottom: "64px" }}>
+          <h1 
+            className="text-5xl md:text-7xl font-bold tracking-tighter mb-6"
+            style={{ color: "var(--text)" }}
+          >
+            AAKASH PAI.
+          </h1>
+          <p 
+            className="text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
+            style={{ color: "var(--muted)" }}
+          >
+            Full-Stack Engineer & CS Student at Sunway University. I build robust, scalable, and dynamic digital experiences.
+          </p>
+          
+          <div className="flex flex-wrap justify-center items-center gap-4" style={{ marginTop: "24px" }}>
+            <a 
+              href="#contact" 
+              className="btn-contact"
+            >
+              <span>Contact Me</span>
+              <div className="btn-contact-icons">
+                <FaWhatsapp size={22} className="icon" />
+                <FaLinkedin size={22} className="icon" />
+                <FaGithub size={22} className="icon" />
               </div>
-            )}
-
-            {/* idle prompt when done */}
-            {done && (
-              <div className="flex gap-3 mt-1">
-                <span style={{ color: "var(--t-prompt)" }}>{PROMPT}</span>
-                <span className="cursor-block" />
-              </div>
-            )}
+            </a>
+            <a 
+              href="/resume.pdf" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 text-sm font-medium tracking-wide btn-hero btn-hero-secondary rounded-md"
+            >
+              View Resume
+            </a>
           </div>
-        </TerminalWindow>
+        </div>
+
+        {/* Terminal Window Below */}
+        <div className="w-full max-w-4xl mx-auto relative text-left" style={{ marginBottom: "96px" }}>
+          <TerminalWindow title={`bash — ${PROMPT.split("$")[0].trim()}`}>
+              <div>
+                {lines.map((line, i) => {
+                  if (line.kind === "gap") {
+                    return <div key={i} className="h-3" />;
+                  }
+                  if (line.kind === "cmd") {
+                    return (
+                      <div key={i} className="flex gap-3">
+                        <span style={{ color: "var(--t-prompt)" }}>{PROMPT}</span>
+                        <span style={{ color: "var(--text)" }}>{line.text}</span>
+                      </div>
+                    );
+                  }
+                  // out
+                  const isOk = line.text.startsWith("[OK]");
+                  return (
+                    <div
+                      key={i}
+                      style={{ color: isOk ? "var(--t-ok)" : "var(--t-output)" }}
+                    >
+                      {line.text}
+                    </div>
+                  );
+                })}
+
+                {/* currently typing */}
+                {typing !== null && (
+                  <div className="flex gap-3">
+                    <span style={{ color: "var(--t-prompt)" }}>{PROMPT}</span>
+                    <span style={{ color: "var(--text)" }}>
+                      {typing}
+                      <span className="cursor-block" />
+                    </span>
+                  </div>
+                )}
+
+                {/* idle prompt when done */}
+                {done && (
+                  <div className="flex gap-3 mt-1">
+                    <span style={{ color: "var(--t-prompt)" }}>{PROMPT}</span>
+                    <span className="cursor-block" />
+                  </div>
+                )}
+              </div>
+            </TerminalWindow>
+          </div>
+
 
         {/* stat row — separate blocks */}
-        <div
-          className="grid grid-cols-3 gap-6"
-          style={{ marginTop: "32px" }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {STATS.map((s, i) => (
             <div
               key={i}

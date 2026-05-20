@@ -1,5 +1,8 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
 @source "./**/*.{ts,tsx}";
+
 
 /* explicit spacing — tailwind v4 + turbopack doesn't always generate these */
 .p-4 {
@@ -207,11 +210,18 @@
   --hero-pad-top: 148px;
 }
 
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* override tailwind v4 preflight border color default */
+*, *::before, *::after {
+  border-color: transparent;
+}
+
 
 html {
   scroll-behavior: smooth;
@@ -225,17 +235,132 @@ body {
   overflow-x: hidden;
 }
 
-/* line grid bg */
+/* aceternity grid background */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
+  background-size: 55px 55px;
   background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(to right, #262626 1px, transparent 1px),
+    linear-gradient(to bottom, #262626 1px, transparent 1px);
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Hero Button Animation */
+.btn-hero {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.btn-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  scale: 0;
+  z-index: -1;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+/* Primary variant (Contact Me) - Animated Icons */
+.btn-contact {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  width: 160px;
+  height: 44px;
+  background-color: var(--text);
+  border-radius: 6px;
+  border: 1px solid var(--text);
+  padding: 0;
+  transition: all .2s ease;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.btn-contact:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0px 20px rgba(232, 232, 234, 0.2);
+}
+
+.btn-contact span {
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  line-height: 44px;
+  letter-spacing: 0.025em;
+  color: var(--bg);
+  background-color: var(--text);
+  transition: all 1.2s ease;
+}
+
+.btn-contact .btn-contact-icons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-contact svg {
+  opacity: 0;
+  fill: var(--bg);
+}
+
+.btn-contact .btn-contact-icons svg:nth-of-type(1) {
+  transition-delay: 0.65s;
+}
+
+.btn-contact .btn-contact-icons svg:nth-of-type(2) {
+  transition-delay: 0.8s;
+}
+
+.btn-contact .btn-contact-icons svg:nth-of-type(3) {
+  transition-delay: 0.5s;
+}
+
+.btn-contact:hover span {
+  opacity: 0;
+}
+
+.btn-contact:hover svg {
+  opacity: 1;
+}
+
+/* Secondary variant (View Resume) */
+.btn-hero-secondary {
+  color: var(--text);
+  border: 1px solid var(--border);
+  background-color: transparent;
+}
+.btn-hero-secondary::before {
+  background-color: var(--surface-2);
+}
+.btn-hero-secondary:hover::before {
+  scale: 5;
+}
+.btn-hero-secondary:hover {
+  scale: 1.05;
+}
+.btn-hero-secondary:active {
+  scale: 1;
 }
 
 ::selection {
@@ -358,4 +483,93 @@ body::before {
 
 .fade-up {
   animation: fadeUp 0.5s ease forwards;
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }
