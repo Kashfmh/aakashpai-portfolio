@@ -28,7 +28,7 @@ import CustomCursor from "./components/ui/CustomCursor";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className="min-h-screen">
+      <body className="min-h-dvh">
         <CustomCursor />
         {children}
       </body>

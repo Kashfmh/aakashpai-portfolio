@@ -39,7 +39,7 @@ function ProjectCard({
   return (
     <div
       ref={container}
-      className="h-screen flex justify-center sticky top-0"
+      className="h-dvh flex justify-center sticky top-0"
       style={{ paddingTop: "140px" }}
     >
       <div className="container w-full flex justify-center h-fit">
