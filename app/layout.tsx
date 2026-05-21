@@ -23,10 +23,15 @@ export const metadata: Metadata = {
   },
 };
 
+import CustomCursor from "./components/ui/CustomCursor";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }
