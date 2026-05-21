@@ -10,7 +10,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Terminal, FileText } from "lucide-react";
 
 export default function Navbar() {
@@ -23,6 +23,32 @@ export default function Navbar() {
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    navItems.forEach((item) => {
+      const section = document.getElementById(item.link.replace("#", ""));
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      navItems.forEach((item) => {
+        const section = document.getElementById(item.link.replace("#", ""));
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, []);
 
   const Logo = () => (
     <a
@@ -40,7 +66,7 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <NavBody className="border border-border bg-surface">
           <Logo />
-          <NavItems items={navItems} />
+          <NavItems items={navItems} activeSection={activeSection} />
           <div className="flex items-center gap-6">
             <a
               href="/resume.pdf"
@@ -78,17 +104,20 @@ export default function Navbar() {
             onClose={() => setIsMobileMenuOpen(false)}
             className="border border-border bg-surface dark:bg-surface"
           >
-            {navItems.map((item, idx) => (
-              <a
-                key={`mobile-link-${idx}`}
-                href={item.link}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="relative text-xs tracking-[0.15em] uppercase text-muted hover:text-text w-full pb-4 border-b border-border"
-                style={{ color: "var(--muted)" }}
-              >
-                <span className="block">{item.name}</span>
-              </a>
-            ))}
+            {navItems.map((item, idx) => {
+              const isActive = activeSection === item.link.replace("#", "");
+              return (
+                <a
+                  key={`mobile-link-${idx}`}
+                  href={item.link}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`relative text-xs tracking-[0.15em] uppercase hover:text-text w-full pb-4 border-b border-border ${isActive ? "text-text" : "text-muted"}`}
+                  style={{ color: isActive ? "var(--text)" : "var(--muted)" }}
+                >
+                  <span className="block">{item.name}</span>
+                </a>
+              );
+            })}
             <div className="flex w-full flex-col gap-4 mt-4">
               <a
                 href="/resume.pdf"

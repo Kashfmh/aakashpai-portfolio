@@ -29,6 +29,7 @@ interface NavItemsProps {
   }[];
   className?: string;
   onItemClick?: () => void;
+  activeSection?: string;
 }
 
 interface MobileNavProps {
@@ -110,7 +111,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({ items, className, onItemClick, activeSection }: NavItemsProps) => {
   return (
     <motion.div
       className={cn(
@@ -118,19 +119,22 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         className,
       )}
     >
-      {items.map((item, idx) => (
-        <a
-          onClick={onItemClick}
-          className="text-xs tracking-[0.15em] uppercase transition-colors duration-150"
-          style={{ color: "var(--muted)" }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
-          key={`link-${idx}`}
-          href={item.link}
-        >
-          {item.name}
-        </a>
-      ))}
+      {items.map((item, idx) => {
+        const isActive = activeSection === item.link.replace("#", "");
+        return (
+          <a
+            onClick={onItemClick}
+            className={cn("text-xs tracking-[0.15em] uppercase transition-colors duration-150", isActive ? "text-text" : "text-muted")}
+            style={{ color: isActive ? "var(--text)" : "var(--muted)" }}
+            onMouseEnter={(e) => (!isActive && (e.currentTarget.style.color = "var(--text)"))}
+            onMouseLeave={(e) => (!isActive && (e.currentTarget.style.color = "var(--muted)"))}
+            key={`link-${idx}`}
+            href={item.link}
+          >
+            {item.name}
+          </a>
+        );
+      })}
     </motion.div>
   );
 };
