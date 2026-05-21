@@ -481,6 +481,17 @@ body::before {
   }
 }
 
+/* github activity section — extra top spacing on mobile */
+.github-activity-section {
+  margin-top: 60px;
+}
+
+@media (min-width: 768px) {
+  .github-activity-section {
+    margin-top: 96px;
+  }
+}
+
 /* section marker — 01 // LABEL */
 .section-marker {
   font-size: 0.65rem;

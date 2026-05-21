@@ -173,10 +173,22 @@ export default function Projects() {
         </div>
 
         {/* GitHub Activity Section */}
-        <div className="container w-full max-w-5xl mx-auto flex flex-col mt-24 relative z-10">
-          <h3 className="text-xl font-semibold tracking-tight mb-8" style={{ color: "var(--text)" }}>
-            GitHub Activity
-          </h3>
+        <div className="container w-full max-w-5xl mx-auto flex flex-col github-activity-section relative z-10">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-xl font-semibold tracking-tight" style={{ color: "var(--text)" }}>
+              GitHub Activity
+            </h3>
+            <a
+              href="https://github.com/Kashfmh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs tracking-[0.15em] uppercase hover-text transition-colors"
+              style={{ color: "var(--muted)" }}
+            >
+              <SiGithub size={16} />
+              View Profile
+            </a>
+          </div>
           <div className="p-8 w-full overflow-x-auto flex justify-center rounded-lg" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
             <GitHubCalendar 
               username="Kashfmh" 
