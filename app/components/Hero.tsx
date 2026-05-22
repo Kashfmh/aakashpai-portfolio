@@ -126,9 +126,7 @@ export default function Hero() {
               </div>
             </a>
             <a 
-              href="/resume.pdf" 
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/resume"
               className="px-8 py-3 text-sm font-medium tracking-wide btn-hero btn-hero-secondary rounded-md"
             >
               View Resume

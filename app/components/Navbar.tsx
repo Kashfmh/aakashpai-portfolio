@@ -71,9 +71,7 @@ export default function Navbar() {
           <NavItems items={navItems} activeSection={activeSection} />
           <div className="flex items-center gap-6">
             <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/resume"
               className="flex items-center gap-2 text-xs tracking-[0.15em] uppercase transition-colors duration-150 hover:text-text"
               style={{ color: "var(--muted)" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text)")}
@@ -123,9 +121,7 @@ export default function Navbar() {
                   );
                 })}
                 <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/resume"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-4xl sm:text-5xl font-medium tracking-tight hover:opacity-70 transition-opacity mt-4"
                   style={{ color: "var(--text)" }}
