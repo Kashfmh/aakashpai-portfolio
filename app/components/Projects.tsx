@@ -179,7 +179,7 @@ export default function Projects() {
               GitHub Activity
             </h3>
             <a
-              href="https://github.com/Kashfmh"
+              href="https://github.com/kashals"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-xs tracking-[0.15em] uppercase hover-text transition-colors"
@@ -190,8 +190,8 @@ export default function Projects() {
             </a>
           </div>
           <div className="p-8 w-full overflow-x-auto flex justify-center rounded-lg" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-            <GitHubCalendar 
-              username="Kashfmh" 
+            <GitHubCalendar
+              username="kashals"
               colorScheme="dark"
               fontSize={12}
               blockSize={12}

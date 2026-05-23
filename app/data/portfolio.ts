@@ -11,7 +11,7 @@ export const ABOUT = {
 };
 
 export const SOCIALS = {
-  github: "https://github.com/Kashfmh",
+  github: "https://github.com/kashals",
   linkedin: "https://www.linkedin.com/in/aakash-pai-67aa83326",
   email: "aakashpai2007@gmail.com",
   whatsapp:
@@ -76,7 +76,7 @@ export const PROJECTS: Project[] = [
     description:
       "Production-grade e-commerce platform for a local bakery. Server-authoritative Stripe payments, Cloudflare Turnstile bot protection, Upstash Redis rate limiting, atomic stock deduction via Supabase RPC, and a role-gated admin dashboard with real-time revenue analytics.",
     tech: ["TypeScript", "Next.js 15", "Supabase", "Stripe", "Upstash Redis", "Tailwind CSS"],
-    github: "https://github.com/kashfmh/sugar-and-icing",
+    github: "https://github.com/kashals/sugar-and-icing",
     live: "https://sugarandicing.vercel.app/",
     image: "/project_pictures/sai.png",
     featured: true,
@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
     description:
       "Containerized enterprise decision-support system on Google Cloud Run. Processes pitch decks via Gemini 2.5 Flash async batch queues, mapping venture constraints against live relational data. Includes an XAI chat interface for real-time AI decision auditing.",
     tech: ["Python", "Streamlit", "Gemini API", "Google Cloud Run", "Docker", "Pandas"],
-    github: "https://github.com/kashfmh/linkops",
+    github: "https://github.com/kashals/linkops",
     live: "https://linkops-engine-909093874855.asia-southeast1.run.app",
     image: "/project_pictures/linkops.png",
     featured: true,
